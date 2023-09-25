@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UTB.Eshop.Infrastructure", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UTB.Eshop.Application", "UTB.Eshop.Application\UTB.Eshop.Application.csproj", "{B31FD9C4-80C5-4E17-BCC7-5924AFAC9EA2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UTB.Eshop.Tests", "UTB.Eshop.Tests\UTB.Eshop.Tests.csproj", "{8CC59964-70B3-4475-A46C-1B0350FCED20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{B31FD9C4-80C5-4E17-BCC7-5924AFAC9EA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B31FD9C4-80C5-4E17-BCC7-5924AFAC9EA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B31FD9C4-80C5-4E17-BCC7-5924AFAC9EA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CC59964-70B3-4475-A46C-1B0350FCED20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CC59964-70B3-4475-A46C-1B0350FCED20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CC59964-70B3-4475-A46C-1B0350FCED20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CC59964-70B3-4475-A46C-1B0350FCED20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
