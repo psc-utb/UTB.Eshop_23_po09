@@ -8,5 +8,7 @@ namespace UTB.Eshop.Domain.Entities
 {
     public class Carousel : Entity
     {
+        public string ImageSrc { get; set; }
+        public string ImageAlt { get; set; }
     }
 }
