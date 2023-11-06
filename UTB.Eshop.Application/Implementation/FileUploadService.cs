@@ -34,7 +34,7 @@ namespace UTB.Eshop.Application.Implementation
                 await fileToUpload.CopyToAsync(stream);
             }
 
-            filePathOutput = "/" + fileRelative;
+            filePathOutput = Path.DirectorySeparatorChar + fileRelative;
 
             return filePathOutput;
         }
