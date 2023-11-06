@@ -11,12 +11,19 @@ namespace UTB.Eshop.Application.Implementation
 {
     public class ProductAdminDFakeService : IProductAdminService
     {
+        IFileUploadService _fileUploadService;
+
+        public ProductAdminDFakeService(IFileUploadService fileUploadService)
+        {
+            _fileUploadService = fileUploadService;
+        }
+
         public IList<Product> Select()
         {
             return DatabaseFake.Products;
         }
 
-        public void Create(Product product)
+        public async void Create(Product product)
         {
             if (DatabaseFake.Products != null &&
                 DatabaseFake.Products.Count > 0)
@@ -28,6 +35,8 @@ namespace UTB.Eshop.Application.Implementation
                 product.Id = 1;
             }
 
+            string imageSource = await _fileUploadService.FileUploadAsync(product.Image, Path.Combine("img", "products"));
+            product.ImageSrc = imageSource;
 
             if (DatabaseFake.Products != null)
                 DatabaseFake.Products.Add(product);
