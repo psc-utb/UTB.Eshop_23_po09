@@ -1,13 +1,20 @@
+using Microsoft.EntityFrameworkCore;
 using UTB.Eshop.Application.Abstraction;
 using UTB.Eshop.Application.Implementation;
+using UTB.Eshop.Infrastructure.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+string connectionString = builder.Configuration.GetConnectionString("MySQL");
+ServerVersion serverVersion = new MySqlServerVersion("8.0.34");
+
+builder.Services.AddDbContext<EshopDbContext>(optionsBuilder => optionsBuilder.UseMySql(connectionString, serverVersion));
+
 builder.Services.AddScoped<IFileUploadService, FileUploadService>(serviceProvider => new FileUploadService(serviceProvider.GetService<IWebHostEnvironment>().WebRootPath));
-builder.Services.AddScoped<IProductAdminService, ProductAdminDFakeService>();
+builder.Services.AddScoped<IProductAdminService, ProductAdminService>();
 builder.Services.AddScoped<IHomeService, HomeService>();
 
 var app = builder.Build();

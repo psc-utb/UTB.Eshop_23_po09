@@ -27,9 +27,9 @@ namespace UTB.Eshop.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Product product)
+        public async Task<IActionResult> Create(Product product)
         {
-            _productService.Create(product);
+            await _productService.Create(product);
 
             return RedirectToAction(nameof(ProductController.Index));
         }
