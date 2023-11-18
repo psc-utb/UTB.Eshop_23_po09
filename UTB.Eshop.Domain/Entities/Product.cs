@@ -19,7 +19,6 @@ namespace UTB.Eshop.Domain.Entities
         //public int CategoryId { get; set; }
 
         [Required]
-        [Range(0, double.MaxValue)]
         public double Price { get; set; }
 
         public string? ImageSrc { get; set; }
