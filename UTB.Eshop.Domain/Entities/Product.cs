@@ -22,7 +22,6 @@ namespace UTB.Eshop.Domain.Entities
         [Range(0, double.MaxValue)]
         public double Price { get; set; }
 
-        [Required]
         public string? ImageSrc { get; set; }
 
         [NotMapped]
