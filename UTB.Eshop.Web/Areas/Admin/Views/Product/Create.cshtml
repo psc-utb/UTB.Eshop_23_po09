@@ -6,21 +6,32 @@
 <h1>@ViewData["Title"]</h1>
 
 <form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
     <div class="mb-3">
         <label class="form-label">Name</label>
         <input class="form-control" asp-for="Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label class="form-label">Description</label>
         <input class="form-control" asp-for="Description">
+        <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label class="form-label">Price</label>
         <input class="form-control" asp-for="Price">
+        <span asp-validation-for="Price" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label class="form-label">Image</label>
-        <input class="form-control-file" asp-for="Image">
+        <input id="fileupload" class="form-control-file" asp-for="Image">
+        <span asp-validation-for="Image" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/validations/FileContentValidation.js"></script>
+}

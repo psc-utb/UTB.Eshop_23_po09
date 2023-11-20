@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UTB.Eshop.Domain.Implementation.Validations;
 
 namespace UTB.Eshop.Domain.Entities
 {
@@ -24,6 +25,7 @@ namespace UTB.Eshop.Domain.Entities
         public string? ImageSrc { get; set; }
 
         [NotMapped]
+        [FileContent("image")]
         public IFormFile Image { get; set; }
     }
 }
