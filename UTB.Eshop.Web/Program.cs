@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using UTB.Eshop.Application.Abstraction;
@@ -6,6 +7,11 @@ using UTB.Eshop.Infrastructure.Database;
 using UTB.Eshop.Infrastructure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//culture settings for server side if needed (it uses czech currency and uses decimal comma)
+var cultInfo = new CultureInfo("cs-cz");
+CultureInfo.DefaultThreadCurrentCulture = cultInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultInfo;
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -46,11 +52,29 @@ builder.Services.AddDbContext<EshopDbContext>(optionsBuilder => optionsBuilder.U
         });
 
 
+//configuration of session
+builder.Services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
+builder.Services.AddSession(options =>
+{
+    // Set a short timeout for easy testing.
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    // Make the session cookie essential
+    options.Cookie.IsEssential = true;
+});
+
+
 builder.Services.AddScoped<IAccountService, AccountIdentityService>();
+builder.Services.AddScoped<ISecurityService, SecurityIdentityService>();
+
+builder.Services.AddScoped<IOrderCartService, OrderCartService>();
+builder.Services.AddScoped<IOrderCustomerService, OrderCustomerService>();
 
 
 builder.Services.AddScoped<IFileUploadService, FileUploadService>(serviceProvider => new FileUploadService(serviceProvider.GetService<IWebHostEnvironment>().WebRootPath));
 builder.Services.AddScoped<IProductAdminService, ProductAdminService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderItemService, OrderItemService>();
 builder.Services.AddScoped<IHomeService, HomeService>();
 
 var app = builder.Build();
@@ -65,6 +89,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+//activation of session
+app.UseSession();
 
 app.UseRouting();
 
