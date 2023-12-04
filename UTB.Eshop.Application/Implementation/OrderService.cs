@@ -18,7 +18,7 @@ namespace UTB.Eshop.Application.Implementation
         public IList<Order> Select()
         {
             return _eshopDbContext.Orders
-                                  .Include(oi => oi.User)
+                                  .Include(o => o.User)
                                   .ToList();
         }
     }
