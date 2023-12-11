@@ -21,8 +21,8 @@ namespace UTB.Eshop.Tests.Security.Account
         public async Task Login_ValidSuccess()
         {
             // Arrange
-            var mockISecurityApplicationService = new Mock<IAccountService>();
-            mockISecurityApplicationService.Setup(security => security.Login(It.IsAny<LoginViewModel>()))
+            var mockIAccountService = new Mock<IAccountService>();
+            mockIAccountService.Setup(account => account.Login(It.IsAny<LoginViewModel>()))
                                                                       //prvni verze, kdy rekneme, ze login projde
                                                                       .Returns(() => Task<bool>.Run(() => true));
 
@@ -34,7 +34,7 @@ namespace UTB.Eshop.Tests.Security.Account
             };
 
 
-            AccountController controller = new AccountController(mockISecurityApplicationService.Object);
+            AccountController controller = new AccountController(mockIAccountService.Object);
 
             //Act
             IActionResult iActionResult = await controller.Login(loginViewModel);
@@ -53,8 +53,8 @@ namespace UTB.Eshop.Tests.Security.Account
         public async Task Login_InvalidFailure()
         {
             // Arrange
-            var mockISecurityApplicationService = new Mock<IAccountService>();
-            mockISecurityApplicationService.Setup(security => security.Login(It.IsAny<LoginViewModel>()))
+            var mockIAccountService = new Mock<IAccountService>();
+            mockIAccountService.Setup(account => account.Login(It.IsAny<LoginViewModel>()))
                                                                       //druha verze, kdy si muzeme testovat, co je v LoginViewModel (toto delame spis jen tehdy, kdy mame setup v samostatne metode -> tzn., ze se pouziva ve vice testech, kde potrebujeme nekdy vratit true a nekdy false)
                                                                       //je zde mozne pouzit i prvni verzi vyse
                                                                       .Returns<LoginViewModel>((loginVM) =>
@@ -76,7 +76,7 @@ namespace UTB.Eshop.Tests.Security.Account
             };
 
 
-            AccountController controller = new AccountController(mockISecurityApplicationService.Object);
+            AccountController controller = new AccountController(mockIAccountService.Object);
 
 
             //u testovani nevalidniho vstupu (pro unit testy) se pro oddeleni logiky validace a controlleru pridava primo chyba validace do ModelState
@@ -105,8 +105,8 @@ namespace UTB.Eshop.Tests.Security.Account
         public async Task LoginValidation_InvalidFailure()
         {
             // Arrange
-            var mockISecurityApplicationService = new Mock<IAccountService>();
-            mockISecurityApplicationService.Setup(security => security.Login(It.IsAny<LoginViewModel>()))
+            var mockIAccountService = new Mock<IAccountService>();
+            mockIAccountService.Setup(account => account.Login(It.IsAny<LoginViewModel>()))
                                                                       .Returns(() => Task<bool>.Run(() => true));
 
 
@@ -117,7 +117,7 @@ namespace UTB.Eshop.Tests.Security.Account
             };
 
 
-            AccountController controller = new AccountController(mockISecurityApplicationService.Object);
+            AccountController controller = new AccountController(mockIAccountService.Object);
 
             //pokud pouzivate TryValidateModel(model), tak musite nastavit ObjectValidator. Tato varianta ale testuje nejen samotnou metodu, ale i implementaci validace => jedna se o integracni test.
             //(na vstup ObjectValidator muzete nastavit true, aby se validace neprovedla).
